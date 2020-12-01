@@ -1,4 +1,4 @@
-defmodule GeoDataStorage.GeoData do
+defmodule GeoDataStorage.Model.GeoData do
   @moduledoc """
   Describe database table that contains country IP address coordinates
   """

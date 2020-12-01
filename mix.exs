@@ -24,6 +24,7 @@ defmodule GeoDataStorage.MixProject do
       # Tools
       {:csv, "~> 2.3"},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
+      {:cidr, ">= 1.1.0"},
       # Database
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"}
