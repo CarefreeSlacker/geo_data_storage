@@ -21,6 +21,9 @@ defmodule GeoDataStorage.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      # Tools
+      {:csv, "~> 2.3"},
+      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       # Database
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"}
