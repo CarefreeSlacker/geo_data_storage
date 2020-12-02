@@ -47,7 +47,7 @@ defmodule GeoDataStorage.DatabaseContext do
 
   ## Examples
 
-      iex> create_geo_data(%{field: value})
+      iex> create_geo_data(%{field: mystery_value})
       {:ok, %GeoData{}}
 
       iex> create_geo_data(%{field: bad_value})
@@ -105,5 +105,13 @@ defmodule GeoDataStorage.DatabaseContext do
   """
   def change_geo_data(%GeoData{} = geo_data) do
     GeoData.changeset(geo_data, %{})
+  end
+
+  @doc """
+  Looks for geo data by given IP address
+  """
+  def find_by_ip_address(ip_address) when is_binary(ip_address) do
+    from(geo_data in GeoData, where: geo_data.ip_address == ^ip_address)
+    |> Repo.one()
   end
 end

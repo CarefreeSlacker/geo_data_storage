@@ -14,7 +14,7 @@ defmodule GeoDataStorage.Model.GeoData do
     :city,
     :latitude,
     :longitude,
-    :value
+    :mystery_value
   ]
   @required_fields [
     :ip_address,
@@ -22,10 +22,10 @@ defmodule GeoDataStorage.Model.GeoData do
     :country,
     :city,
     :latitude,
-    :longitude,
-    :value
+    :longitude
   ]
   @type t :: %__MODULE__{}
+  @ip_address_regex ~r/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/
 
   schema @table_name do
     field :ip_address, :string
@@ -34,14 +34,20 @@ defmodule GeoDataStorage.Model.GeoData do
     field :city, :string
     field :latitude, :float
     field :longitude, :float
-    field :value, :integer
+    field :mystery_value, :integer
 
     timestamps()
   end
+
+  def ip_address_regex, do: @ip_address_regex
 
   def changeset(entity \\ %__MODULE__{}, attrs) do
     entity
     |> cast(attrs, @cast_fields, [])
     |> validate_required(@required_fields)
+    |> unique_constraint(:ip_address)
+    |> validate_number(:longitude, less_than_or_equal_to: 180, greater_than_or_equal_to: -180)
+    |> validate_number(:latitude, less_than_or_equal_to: 90, greater_than_or_equal_to: -90)
+    |> validate_format(:ip_address, @ip_address_regex)
   end
 end

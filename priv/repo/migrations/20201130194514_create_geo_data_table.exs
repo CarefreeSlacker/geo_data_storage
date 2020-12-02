@@ -9,9 +9,11 @@ defmodule GeoDataStorage.Repo.Migrations.CreateGeoDataTable do
       add :city, :string
       add :latitude, :float
       add :longitude, :float
-      add :value, :integer
+      add :mystery_value, :bigint
 
       timestamps()
     end
+
+    create unique_index(:geo_data_table, :ip_address)
   end
 end
